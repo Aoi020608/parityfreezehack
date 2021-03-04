@@ -3,6 +3,8 @@ pragma solidity ^0.4.8;
 import "./Library.sol";
 
 contract Vulnerable {
+
+  Library lib = Library(address);
   
   mapping (address => uint) balances;
   
@@ -11,7 +13,7 @@ contract Vulnerable {
   }
   
   function withdraw() {
-    if(balances[msg.sender] == 0) {
+    if(lib.isNotPositive(balances[msg.sender])) {
       throw;
     }
     
